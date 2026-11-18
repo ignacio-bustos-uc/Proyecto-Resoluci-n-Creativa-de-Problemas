@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123f38">
+<title>Punto Estudio · Campus San Joaquín</title>
+<style>
+*{box-sizing:border-box} :root{--ink:#152f2b;--muted:#566a63;--line:#dce3dc;--green:#12664e;--paper:#f7f8f3;--available:#17775a;--limited:#aa610b;--full:#7c5864;color-scheme:light;font-family:"DM Sans",Inter,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+body{margin:0;background:var(--paper)}button,input{font:inherit}button{cursor:pointer;color:inherit}button:focus-visible,input:focus-visible{outline:3px solid #287fb5;outline-offset:3px}button{border:none;background:none}button:disabled{opacity:.35;cursor:default}.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}.symbols{position:absolute;width:0;height:0;overflow:hidden}
+header{background:#fff;border-bottom:1px solid var(--line)}.top{max-width:1650px;margin:auto;height:69px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,3.2vw,56px)}.brand,.campus,.loc,.sim,.legend,.count,.smallrow,.filters,.cardtop,.control,.back{display:flex;align-items:center}.brand{gap:11px;font-size:21px;font-weight:750;letter-spacing:-1px}.mark{background:#164f40;color:#fff;display:grid;place-items:center;width:35px;height:35px;border-radius:10px}.mark .ic{width:24px;height:24px}.campus{gap:8px;font-size:13px;font-weight:600}.campus .ic{width:16px;color:var(--green)}
+main{max-width:1650px;margin:auto;padding:clamp(20px,2.2vw,34px) clamp(12px,3.2vw,56px) 22px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:19px}h1,h2,h3,p{margin:0}h1{font-size:clamp(30px,3vw,46px);letter-spacing:-.052em;line-height:1.1;font-weight:700}.intro p{color:var(--muted);margin-top:7px;font-size:15px}.sim{font-size:12px;color:#52635b;gap:7px;background:#edf1e9;border:1px solid #dce3d6;border-radius:100px;padding:7px 11px;white-space:nowrap}.sim .ic{width:14px;height:14px}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(290px,30%);border:1px solid #cfd8ce;background:#fff;border-radius:18px;overflow:hidden;height:clamp(490px,calc(100dvh - 220px),850px);box-shadow:0 4px 18px #18352408}.mapbox{position:relative;isolation:isolate;min-width:0;background:#edf0e5;overflow:hidden}.map{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;user-select:none}.map.drag{cursor:grabbing}.sheet{position:absolute;left:0;top:0;transform-origin:0 0}.basemap{display:block;width:100%;height:100%;pointer-events:none}.mapcap{position:absolute;top:16px;left:16px;background:white;border:1px solid #d8e1d6;border-radius:9px;box-shadow:0 2px 6px #2e493015;display:flex;align-items:center;gap:7px;padding:8px 11px;font-size:12px;font-weight:650;pointer-events:none}.mapcap .ic{width:16px;height:16px;color:var(--green)}.zoom{position:absolute;right:14px;bottom:17px;display:grid;gap:7px}.zoomgroup,.control{background:white;border:1px solid #ced8ce;border-radius:10px;box-shadow:0 2px 6px #2e493015}.zoomgroup{overflow:hidden}.control{width:37px;height:37px;justify-content:center}.zoomgroup .control{border:0;border-radius:0;box-shadow:none}.zoomgroup .control+.control{border-top:1px solid var(--line)}.control:hover:not(:disabled),.back:hover,.close:hover{background:#f0f5ed}.legend{gap:12px;position:absolute;left:14px;bottom:16px;font-size:11px;font-weight:600;border:1px solid #d5ded2;background:#fffffff7;padding:9px 12px;border-radius:9px;box-shadow:0 2px 8px #29462c0b}.legend span,.status{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}.dot{width:8px;height:8px;border-radius:50%;background:var(--tone);display:inline-block}.available{--tone:var(--available);--tint:#e6f3e9}.limited{--tone:var(--limited);--tint:#fbefda}.full{--tone:var(--full);--tint:#f0e8ec}
+.pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;padding:0;background:transparent;width:34px;height:34px;z-index:1;border-radius:50%}.pin .bubble{width:24px;height:24px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);background:var(--tone);border:2px solid #fff;box-shadow:-1px 2px 4px #17352342;display:grid;place-items:center}.pin .bubble .ic{color:#fff;width:13px;height:13px;transform:rotate(45deg);stroke-width:2}.pin:hover,.pin:focus-visible,.pin.active{z-index:10}.pin:hover .bubble,.pin:focus-visible .bubble,.pin.active .bubble{outline:2px solid var(--ink)}.pin .tip{display:none;position:absolute;bottom:35px;left:50%;transform:translateX(-50%);border-radius:6px;background:#173e34;color:white;white-space:nowrap;padding:5px 8px;font-size:11px}.pin:hover .tip,.pin:focus-visible .tip{display:block}.pin.active .bubble{background:#123d33}
+.side{display:flex;min-height:0;flex-direction:column;border-left:1px solid var(--line);min-width:0}.sidehead{padding:21px 20px 14px;border-bottom:1px solid var(--line)}.cardtop{justify-content:space-between;gap:8px}h2{font-size:22px;line-height:1.2;letter-spacing:-.04em}.count{font-size:12px;justify-content:center;min-width:28px;height:23px;padding:0 7px;background:#edf3ec;border-radius:16px;color:#335a48;font-weight:700}.search{display:flex;gap:9px;align-items:center;border:1px solid #ccd8cf;border-radius:9px;background:#fafbf8;margin:14px 0 10px;padding:0 11px;height:38px}.search .ic{width:16px;color:#64766c}.search input{min-width:0;width:100%;border:0;outline:none;background:transparent;color:var(--ink);font-size:14px}.search:focus-within{outline:2px solid var(--green);outline-offset:1px}.filters{gap:6px;flex-wrap:wrap}.chip{border:1px solid #d7dfd6;border-radius:18px;padding:5px 10px;font-size:12px;font-weight:600}.chip[aria-pressed=true]{background:#204e40;border-color:#204e40;color:white}
+.roomlist{overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:#c5d1c7 transparent}.room{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:white;padding:14px 18px;border-bottom:1px solid #e9ede7}.room:hover{background:#f4f8f1}.roomicon{width:35px;height:35px;border-radius:9px;background:#edf3e9;color:#406e57;display:grid;place-items:center;flex:none}.roomicon.library{color:#6b5b3a;background:#f5f0e5}.roomicon .ic{width:18px;height:18px}.roominfo{flex:1;min-width:0}.room b{font-weight:650;font-size:14px;line-height:1.3}.room small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.free{font-size:11px;color:var(--tone);font-weight:700;white-space:nowrap}.empty{padding:25px 20px;color:var(--muted);font-size:14px}.back,.close{gap:5px;font-size:13px;font-weight:600;padding:6px;border-radius:7px}.back .ic,.close .ic{width:17px;height:17px}.detail{padding:16px 20px 20px;overflow-y:auto}.detailbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.detail .roomicon{width:42px;height:42px;margin-bottom:12px}.detail .loc{font-size:13px;color:var(--muted);margin:7px 0 17px;gap:4px}.loc .ic{width:14px;height:14px}.occ{background:#f4f7f0;border:1px solid #dde6d9;padding:15px;border-radius:12px}.smallrow{justify-content:space-between;gap:7px;font-size:12px;font-weight:650}.status{color:var(--tone);background:var(--tint);padding:3px 7px;border-radius:20px;font-size:11px}.ratio{font-size:32px;font-weight:700;letter-spacing:-.05em;margin:6px 0}.ratio span{color:#65766a;font-size:23px}.meter{height:6px;border-radius:10px;background:#dce4d8;overflow:hidden;margin:7px 0}.meter i{display:block;height:100%;border-radius:inherit;background:var(--tone)}.occ p{font-size:13px;color:#41594a}.detail h3{font-size:15px;margin:17px 0 6px}.attr{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #e8ede7;font-size:13px}.attr .ic{width:16px;height:16px;color:#5b7564}.attr strong{margin-left:auto;font-size:12px}.attr .no{color:#718078;font-weight:500}[hidden]{display:none!important}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:760px){.top{height:51px}.brand{font-size:18px}.mark{width:30px;height:30px}.campus{font-size:11px}main{padding-top:16px}.intro{align-items:flex-start;margin-bottom:13px;flex-wrap:wrap;gap:8px}.intro p{font-size:13px}.sim{font-size:10px;padding:4px 7px}.workspace{display:flex;flex-direction:column;height:auto;border-radius:13px}.mapbox{height:clamp(330px,51dvh,480px);flex:none}.mapcap{left:9px;top:9px;font-size:11px}.legend{left:8px;bottom:9px;gap:7px;padding:6px 7px;font-size:10px}.zoom{right:8px;bottom:9px}.control{width:34px;height:34px}.side{border:0;border-top:1px solid var(--line)}.sidehead{padding:15px}.roomlist{max-height:430px}.detail{position:fixed;bottom:0;left:0;right:0;max-height:72dvh;z-index:20;background:white;border:1px solid #cddace;border-radius:18px 18px 0 0;box-shadow:0 -8px 45px #15382a38;padding-bottom:max(18px,env(safe-area-inset-bottom))}.detailbar{margin-bottom:6px}.detail .roomicon{display:none}.detail .loc{margin-bottom:10px}.detail h2{font-size:21px}.detail .attr{padding:6px 0}.intro h1{font-size:31px}}
+@media(prefers-reduced-motion:no-preference){.room,.chip,.control{transition:background .15s}}
+</style>
+</head>
+<body>
+<svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs id="icondefs"></defs></svg>
+<header><div class="top"><div class="brand"><span class="mark" data-icon="atlas"></span>Punto Estudio</div><div class="campus"><i data-icon="pin"></i>Campus San Joaquín</div></div></header>
+<main><div class="intro"><div><h1>Espacios de estudio</h1><p>Encuentra un lugar para estudiar durante tu próxima ventana.</p></div><span class="sim"><i data-icon="flask"></i>Datos simulados</span></div>
+<div class="workspace"><section class="mapbox" aria-label="Mapa interactivo del campus"><div class="map" id="map"><div class="sheet" id="sheet"></div><div id="markers"></div></div>
+<div class="mapcap"><i data-icon="atlas"></i>Mapa del campus</div>
+<div class="legend" aria-label="Leyenda de disponibilidad"><span class="available"><i class="dot"></i>Disponible</span><span class="limited"><i class="dot"></i>Pocos cupos</span><span class="full"><i class="dot"></i>Completo</span></div>
+<div class="zoom"><div class="zoomgroup"><button class="control" id="plus" aria-label="Acercar mapa" title="Acercar mapa" data-icon="plus"></button><button class="control" id="minus" aria-label="Alejar mapa" title="Alejar mapa" data-icon="minus"></button></div><button class="control" id="reset" aria-label="Ver el campus completo" title="Ver el campus completo" data-icon="fit"></button></div></section>
+<aside class="side" aria-label="Espacios de estudio"><div id="sidehead" class="sidehead"><div class="cardtop"><h2>Directorio</h2><span class="count" id="count"></span></div><label class="search"><i data-icon="search"></i><input id="search" type="search" aria-label="Buscar sala o biblioteca" placeholder="Buscar sala o biblioteca…"></label><div class="filters" aria-label="Filtrar espacios"><button class="chip" data-filter="all" aria-pressed="true">Todos</button><button class="chip" data-filter="free" aria-pressed="false">Con cupos</button><button class="chip" data-filter="plug" aria-pressed="false">Con enchufes</button></div></div><div class="roomlist" id="list"></div><section class="detail" id="detail" aria-label="Ficha del espacio" hidden></section></aside></div><span class="sr" id="announce" role="status"></span></main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const paths={
+ atlas:'M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z M9 3v15 M15 6v15',
+ pin:'M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1114 0z M14 10a2 2 0 11-4 0 2 2 0 014 0z',
+ flask:'M9 3h6 M10 3v7l-6 9q-1 2 2 2h12q3 0 2-2l-6-9V3 M7 15h10',
+ plus:'M5 12h14 M12 5v14',minus:'M5 12h14',fit:'M4 9V4h5 M15 4h5v5 M20 15v5h-5 M9 20H4v-5',
+ search:'M17 10a7 7 0 11-14 0 7 7 0 0114 0z M15 15l6 6',
+ desk:'M3 12h18 M5 12v8 M19 12v8 M7 10V5h10v5',
+ book:'M12 6q-5-4-10-2v14q6-2 10 2 4-4 10-2V4q-5-2-10 2z M12 6v14',
+ back:'M14 5l-7 7 7 7',close:'M5 5l14 14 M19 5L5 19',plug:'M8 3v5 M16 3v5 M6 8h12v3a6 6 0 01-12 0z M12 17v4',
+ air:'M12 2v20 M3 7l18 10 M3 17L21 7 M9 4l3 3 3-3 M9 20l3-3 3 3',
+ box:'M3 7l9-4 9 4-9 4z M3 7v11l9 4 9-4V7 M12 11v11',noise:'M3 9h4l5-5v16l-5-5H3z M16 8q4 4 0 8 M19 5q7 7 0 14'
+};
+$('icondefs').innerHTML=Object.entries(paths).map(([name,d])=>`<symbol id="i-${name}" viewBox="0 0 24 24"><path d="${d}"/></symbol>`).join('');
+const icon=name=>`<svg class="ic" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-${name}"/></svg>`;
+document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));
+// Coordenadas en el plano de referencia. Ocupación y equipamiento de demostración.
+// nombre, piso, x, y, ocupados, capacidad, enchufes, aire, bodega, ambiente
+const entries=[
+ ['Sala de estudio CAI','Piso 1',402,654,18,30,1,1,0,'Conversación moderada'],
+ ['Sala Carlos Rivera','Piso 1',812,550,22,24,1,1,0,'Silencioso'],
+ ['Biblioteca Central','Piso 1',923,385,35,60,1,1,1,'Silencioso'],
+ ['Área de Estudio DAE','Piso 1',1025,282,12,20,1,0,1,'Grupal'],
+ ['Sala Álvaro Campos','Piso 4',164,541,15,15,1,0,0,'Silencioso'],
+ ['Sala de estudiantes','Piso 1',214,350,7,18,0,0,0,'Grupal'],
+ ['Pedagogías Interfacultades','Piso 1',349,281,9,20,1,1,1,'Grupal'],
+ ['Sala de estudio norte','Piso 4',400,86,16,18,1,0,0,'Silencioso'],
+ ['Sala de estudio 1 Comercial','Piso 1',627,191,10,18,1,1,0,'Grupal'],
+ ['Sala de estudio 2 Comercial','Piso 2',624,165,18,18,1,1,0,'Silencioso'],
+ ['Sala de estudio 3 Comercial','Piso 3',616,146,6,16,0,1,0,'Silencioso'],
+ ['Sala de estudio 4 Comercial','Piso 4',626,133,11,14,1,0,0,'Grupal'],
+ ['Sala de estudio oriente','Piso 1',993,148,8,16,0,0,1,'Grupal'],
+ ['Sala de estudio central','Piso 2',860,347,12,12,1,1,0,'Silencioso'],
+ ['Sala de estudio poniente','Piso 1',276,458,9,16,1,0,0,'Grupal'],
+ ['Sala de estudio del patio','Piso 1',395,442,14,16,0,0,0,'Grupal'],
+ ['Sala de estudio sur','Piso −1',591,504,5,12,1,0,1,'Silencioso'],
+ ['Sala de estudio del paseo','Piso 1',785,470,21,24,1,1,0,'Silencioso'],
+ ['Sala de estudio de Ingeniería','Piso 1',603,588,9,20,1,1,0,'Grupal'],
+ ['Sala de estudio CAI','Piso 2',402,670,13,20,1,1,0,'Silencioso'],
+ ['Sala de estudio de ayudantía','Piso 1',569,645,10,10,0,0,0,'Grupal'],
+ ['SAI · Sala de Ayudantes Ingeniería','Piso 3',614,670,10,16,1,1,1,'Grupal'],
+ ['Sala de Estar Alumnos','Piso 1',844,698,20,25,1,0,0,'Grupal'],
+ ['Sala de estudio junto al estar','Piso 1',791,729,7,18,1,0,0,'Silencioso'],
+ ['Biblioteca de Humanidades','Piso 1',333,223,18,40,1,1,1,'Silencioso'],
+ ['Biblioteca de Teología','Piso 1',789,282,11,24,1,1,0,'Silencioso'],
+ ['Biblioteca Gauss','Piso 1',795,632,28,32,1,1,1,'Silencioso']
+];
+const rooms=entries.map(([name,floor,x,y,used,total,plug,air,store,sound],id)=>({id,name,floor,x,y,used,total,plug,air,store,sound,free:total-used,type:name.startsWith('Biblioteca')?'book':'desk'}));
+const state=r=>r.free===0?['full','Completo']:r.free/r.total<=.2?['limited','Pocos cupos']:['available','Disponible'];
+const norm=s=>s.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+// Plano esquemático trazado a partir de las dos referencias del campus.
+function campusPlan(){
+ const areas=[
+ '286,0 786,0 810,190 575,222 480,40 460,15','482,43 576,220 491,340 445,342','578,220 802,193 785,330 632,342 612,264 581,311 503,336',
+ '92,249 279,202 445,181 456,242 237,308 154,367 102,382','108,399 608,361 617,494 506,544 481,441 260,440 147,443',
+ '257,522 470,498 506,552 488,610 291,607','503,555 609,500 621,610 551,610','639,363 965,317 975,560 898,575 815,394 649,426',
+ '1004,0 1042,0 1056,116 1004,152','1007,160 1070,177 1097,234 1083,289 1040,320 983,320','1041,372 1172,348 1199,537 1059,538',
+ '1048,581 1181,567 1181,718 1054,703','1200,550 1280,529 1310,729 1200,718','864,617 1009,563 1023,638 991,674 846,678',
+ '141,592 277,554 328,736 146,746','312,600 413,587 453,718 326,748','670,697 987,677 1020,740 677,763',
+ '333,114 420,109 428,187 320,195','730,109 786,99 795,173 737,179'];
+ const blocks=[
+ '113,111 259,96 265,186 218,197 214,160 168,162 169,183 135,187 131,147 115,148',
+ '286,75 427,61 429,84 290,106','295,116 318,114 327,226 305,230','339,187 434,177 438,207 334,220','392,95 432,90 442,156 418,160 415,120 396,124',
+ '102,246 148,235 160,278 123,293','171,236 192,228 217,282 194,298','219,220 257,209 278,303 238,313','274,208 304,201 325,278 294,287',
+ '169,327 248,301 255,327 181,357','266,310 363,279 370,317 272,343','372,253 426,236 443,318 380,331',
+ '553,62 611,55 614,79 560,86','568,94 701,79 708,104 651,109 658,157 599,165 592,121 571,124',
+ '648,125 766,110 772,146 652,159','792,14 822,10 836,98 804,102','844,34 879,30 892,117 858,122',
+ '818,133 874,125 877,155 822,161','895,0 997,-10 1008,121 979,130 971,72 917,80 924,131 897,135','907,24 973,16 976,40 911,49',
+ '643,218 710,205 718,252 688,268 671,253','730,208 775,203 786,300 761,310 750,260 739,259',
+ '795,202 845,196 866,317 823,324','866,193 918,184 925,222 879,233','895,249 948,237 961,306 903,317',
+ '988,179 1018,169 1043,200 1015,223','1025,236 1051,214 1080,244 1051,270','983,285 1006,257 1038,286 1006,310',
+ '144,458 244,444 252,509 151,526','164,541 249,529 258,602 178,618','261,449 371,435 375,470 266,483','269,490 371,475 374,504 273,517',
+ '382,433 416,429 427,499 391,506','430,426 478,420 487,494 439,501','533,495 574,484 590,515 546,526',
+ '649,431 681,425 689,461 655,465','691,422 732,416 737,452 698,457','740,414 800,405 811,449 747,457','665,479 697,473 705,507 672,511','711,470 805,456 815,492 716,506',
+ '826,356 868,348 895,552 850,559','881,347 941,336 973,546 914,555','665,525 812,505 821,550 674,571',
+ '180,637 250,620 262,651 187,665','298,579 374,571 376,594 304,604','330,617 396,606 407,681 343,692','411,592 481,581 500,704 435,712','501,579 544,573 569,714 530,719',
+ '548,619 569,615 582,686 560,691','580,609 608,606 622,680 596,685','647,586 731,576 737,610 653,620','746,574 865,557 872,589 750,609',
+ '652,637 746,624 755,667 663,682','753,622 883,602 891,652 760,666','902,585 969,575 976,614 909,629',
+ '158,740 258,725 265,749 160,762','277,739 384,722 391,748 281,763','406,728 512,713 516,741 410,753',
+ '677,699 735,691 741,729 683,736','765,694 851,680 858,731 771,743','871,687 923,678 930,724 879,731'
+ ];
+ const major=['M-12 -50L36 240 132 860','M36 242L284 199 260 -35','M85 393L464 347 622 342 963 310Q1062 309 1104 247L1300 113','M460 -40L480 151 496 336 515 348','M610 -40L628 190 576 220 613 277 658 800','M97 406L408 374 627 353 974 322','M485 374L504 552 556 741','M130 775L597 727 887 677 982 667Q1031 665 1024 602L985 361Q990 335 1020 322','M1016 355L1075 791','M989 154Q1082 157 1096 230Q1101 277 1061 306','M567 220L1071 157','M1064 544L1295 519','M1038 727L1330 757','M2 72L468 18 778 -22'];
+ const minor=['M93 384L234 288 428 237 578 220','M286 202L455 180','M336 178L417 99','M147 378L94 251','M480 42L575 219 497 337','M576 221L621 340 702 247 775 328','M579 222L652 214','M613 279L562 343','M132 408L272 435 351 382','M267 436L476 414','M402 375L426 431','M490 379L611 492 502 548 629 528','M500 549L597 681','M504 551L613 405','M637 355L727 433 812 403','M742 341L819 468 847 565','M779 211L797 324','M845 196L869 324','M146 556L260 535 500 507','M259 522L308 611 338 736','M272 550L488 524','M305 603L412 586 489 582','M575 552L622 599','M656 465L806 445','M661 517L821 494','M650 576L906 544','M654 624L910 589','M652 691L985 645','M396 723L392 692','M901 354L929 547','M989 315L1038 272 1081 279','M1015 218L1062 251','M1045 378L1183 354','M1130 -23L1193 64 1265 125'];
+ const svgPoly=(p,fill,stroke='none')=>`<polygon points="${p}" fill="${fill}" stroke="${stroke}" stroke-linejoin="round"/>`;
+ const road=(d,w,c)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+ let outer='';
+ for(let i=0;i<22;i++){const x=i*62-130;outer+=`<rect x="${x}" y="-39" width="46" height="74" rx="2" transform="rotate(-7 ${x} 0)"/><rect x="${x+120}" y="787" width="49" height="66" rx="2" transform="rotate(-5 ${x+120} 787)"/>`;}
+ const labels=[[68,570,'AV. VICUÑA MACKENNA',80],[537,279,'Patio central',0],[452,726,'Ingeniería',-6],[722,123,'Comercial',-6],[895,460,'Biblioteca Central',80],[291,173,'Humanidades',-7],[1107,470,'Canchas',0],[762,661,'Gauss',-7],[1051,237,'DAE',0]];
+ let trees='';
+ for(const [x,y] of [[505,109],[535,178],[523,308],[602,311],[371,141],[236,390],[490,481],[545,456],[303,540],[1029,189],[1080,300],[987,645],[838,721],[189,685],[1073,578],[729,337]]){
+  for(const [dx,dy,rad] of [[0,0,6],[9,4,5],[-4,9,5]])trees+=`<circle cx="${x+dx}" cy="${y+dy}" r="${rad}" fill="#b4cbaa" opacity=".68"/>`;
+ }
+ return `<svg class="basemap" viewBox="0 0 1255 811" aria-hidden="true" style="overflow:visible"><defs><pattern id="lawns" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r=".8" fill="#84a47c" opacity=".25"/></pattern></defs><rect x="-1600" y="-1200" width="4455" height="3211" fill="#eaece3"/><g fill="#d9dcd3" stroke="#c9cec4">${outer}</g>${areas.map(p=>svgPoly(p,'#cbdcc0')).join('')}${areas.map(p=>svgPoly(p,'url(#lawns)')).join('')}${blocks.map(p=>svgPoly(p,'#d2d5cb','#bfc5ba')).join('')}${minor.map(d=>road(d,5,'#fafbf4')).join('')}${major.map(d=>road(d,13,'#cdd2c7')+road(d,10,'#fbfcf6')).join('')}<circle cx="576" cy="220" r="10" fill="#aecac4" stroke="#f9fbf4" stroke-width="4"/><path d="M1174 450q19-26 38-9t9 43q-30 22-49-2z" fill="#b6cecc"/>${trees}<g fill="#758374" font-family="Segoe UI,Arial" font-weight="600" font-size="13" text-anchor="middle" paint-order="stroke" stroke="#edf0e6" stroke-width="3">${labels.map(([x,y,t,ang])=>`<text transform="translate(${x} ${y}) rotate(${ang})">${t}</text>`).join('')}</g></svg>`;
+}
+$('sheet').innerHTML=campusPlan();
+let filter='all',visible=rooms,selected=null,zoom=1,base=1,ox=0,oy=0,previous=null;
+const map=$('map'),pins=new Map();
+const leaders=document.createElementNS('http://www.w3.org/2000/svg','svg');
+leaders.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
+$('markers').append(leaders);
+for(const r of rooms){
+ const [kind,label]=state(r),pin=document.createElement('button');pin.className='pin '+kind;
+ pin.setAttribute('aria-label',`${r.name}, ${r.floor}, ${r.free} puestos libres`);
+ pin.innerHTML=`<span class="bubble">${icon(r.type)}</span><span class="tip">${r.name} · ${r.floor}</span>`;
+ pin.addEventListener('click',()=>openRoom(r,pin));$('markers').append(pin);pins.set(r.id,pin);
+}
+const scale=()=>base*zoom;
+function draw(){
+ const s=scale(),w=map.clientWidth,h=map.clientHeight;
+ ox=Math.min(w*.5,Math.max(w*.5-1255*s,ox));oy=Math.min(h*.5,Math.max(h*.5-811*s,oy));
+ $('sheet').style.cssText=`width:1255px;height:811px;transform:translate(${ox}px,${oy}px) scale(${s})`;
+ const placed=[],lines=[];
+ for(const r of visible){
+  const px=ox+r.x*s,py=oy+r.y*s;let x=px,y=py;
+  // Separa los puntos cercanos en pantalla sin cambiar la ubicación de la sala.
+  const clear=(a,b)=>placed.every(p=>Math.hypot(a-p.x,b-p.y)>=33);
+  for(let ring=1;!clear(x,y)&&ring<=6;ring++){
+   for(let k=0;k<12;k++){const ang=k*Math.PI/6;x=px+35*ring*Math.cos(ang);y=py+35*ring*Math.sin(ang);if(clear(x,y))break;}
+  }
+  placed.push({x,y});const pin=pins.get(r.id);pin.style.left=x+'px';pin.style.top=y+'px';
+  if(Math.hypot(x-px,y-py)>3)lines.push(`<line x1="${px}" y1="${py}" x2="${x}" y2="${y}" stroke="#688673" stroke-width="1.2"/>`);
+ }
+ leaders.innerHTML=lines.join('');$('minus').disabled=zoom<=1;$('plus').disabled=zoom>=4;
+}
+function fit(){const w=map.clientWidth,h=map.clientHeight;if(!w||!h)return;base=Math.min(w/1160,h/830);zoom=1;ox=w/2-575*base;oy=h/2-406*base;draw();}
+function magnify(factor,x=map.clientWidth/2,y=map.clientHeight/2){
+ const old=zoom;zoom=Math.min(4,Math.max(1,zoom*factor));ox=x-(x-ox)*zoom/old;oy=y-(y-oy)*zoom/old;draw();
+}
+$('plus').onclick=()=>magnify(1.4);$('minus').onclick=()=>magnify(1/1.4);$('reset').onclick=fit;
+map.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const b=map.getBoundingClientRect();magnify(Math.exp(-e.deltaY*.01),e.clientX-b.left,e.clientY-b.top);},{passive:false});
+let drag=null;
+map.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0||drag)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY};map.setPointerCapture(e.pointerId);map.classList.add('drag');});
+map.addEventListener('pointermove',e=>{if(drag?.id!==e.pointerId)return;ox+=e.clientX-drag.x;oy+=e.clientY-drag.y;drag.x=e.clientX;drag.y=e.clientY;draw();});
+map.addEventListener('lostpointercapture',()=>{drag=null;map.classList.remove('drag')});
+function render(){
+ const query=norm($('search').value.trim());
+ visible=rooms.filter(r=>(filter!=='free'||r.free>0)&&(filter!=='plug'||r.plug)&&norm(r.name+' '+r.floor).includes(query));
+ const ids=new Set(visible.map(r=>r.id));pins.forEach((p,id)=>p.hidden=!ids.has(id));
+ $('count').textContent=visible.length;$('announce').textContent=`${visible.length} espacios en el mapa`;
+ $('list').innerHTML=visible.map(r=>`<button class="room" data-id="${r.id}"><span class="roomicon ${r.type==='book'?'library':''}">${icon(r.type)}</span><span class="roominfo"><b>${r.name}</b><small>${r.floor}</small></span><span class="free ${state(r)[0]}">${r.free?r.free+' libres':'Completo'}</span></button>`).join('')||'<p class="empty">Ningún espacio coincide con tu búsqueda. Prueba otro nombre o filtro.</p>';
+ draw();
+}
+function openRoom(r,trigger){
+ if(selected!==null)pins.get(selected).classList.remove('active');selected=r.id;previous=trigger;pins.get(r.id).classList.add('active');
+ const [kind,label]=state(r);
+ const attr=(symbol,title,value)=>`<div class="attr">${icon(symbol)}${title}<strong class="${value==='No'?'no':''}">${value}</strong></div>`;
+ $('detail').innerHTML=`<div class="detailbar"><button class="back" id="back">${icon('back')}Directorio</button></div><div class="roomicon ${r.type==='book'?'library':''}">${icon(r.type)}</div><h2 tabindex="-1" id="roomtitle">${r.name}</h2><p class="loc">${icon('pin')}${r.floor} · Campus San Joaquín</p><div class="occ ${kind}"><div class="smallrow">Ocupación<span class="status"><i class="dot"></i>${label}</span></div><div class="ratio" aria-label="${r.used} de ${r.total} puestos ocupados">${r.used}<span>/${r.total}</span></div><div class="meter"><i style="width:${100*r.used/r.total}%"></i></div><p><strong>${r.free}</strong> ${r.free===1?'puesto libre':'puestos libres'}</p></div><h3>Características del espacio</h3>${attr('plug','Enchufes',r.plug?'Sí':'No')}${attr('air','Aire acondicionado',r.air?'Sí':'No')}${attr('box','Bodega',r.store?'Sí':'No')}${attr('noise','Ambiente',r.sound)}`;
+ $('sidehead').hidden=true;$('list').hidden=true;$('detail').hidden=false;$('detail').scrollTop=0;
+ $('back').onclick=closeRoom;$('roomtitle').focus({preventScroll:true});
+ if(trigger.classList.contains('room')){ox=map.clientWidth/2-r.x*scale();oy=map.clientHeight/2-r.y*scale();draw();}
+}
+function closeRoom(){
+ if(selected===null)return;pins.get(selected).classList.remove('active');selected=null;
+ $('detail').hidden=true;$('sidehead').hidden=false;$('list').hidden=false;previous?.focus({preventScroll:true});
+}
+$('list').addEventListener('click',e=>{const el=e.target.closest('.room');if(el)openRoom(rooms[Number(el.dataset.id)],el);});
+$('search').addEventListener('input',render);
+document.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{filter=chip.dataset.filter;document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c===chip)));render();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeRoom();});
+new ResizeObserver(fit).observe(map);fit();render();
+</script>
+</body></html>
