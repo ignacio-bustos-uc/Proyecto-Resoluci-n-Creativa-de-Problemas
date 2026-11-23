@@ -20,6 +20,10 @@ main{max-width:1650px;margin:auto;padding:clamp(20px,2.2vw,34px) clamp(12px,3.2v
 .position-demo{position:absolute;pointer-events:none;width:16px;height:16px;border-radius:50%;background:#245dc8;border:2px solid white;box-shadow:0 0 0 6px #3978e62b,0 1px 5px #1c458258;transform:translate(-50%,-50%)}
 .legend .location-dot{background:#245dc8}.sheet-grip{display:none}
 @media(max-width:760px){.sheet-grip{display:block;width:42px;height:5px;margin:-6px auto 8px;border-radius:8px;background:#98a99f}.detail{overscroll-behavior:contain}.legend{max-width:calc(100% - 60px);flex-wrap:wrap}.zone{font-size:13px}}
+.map-tools{position:absolute;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;height:44px;padding:0 16px;background:#fff;border-bottom:1px solid var(--line)}
+.map-tools .mapcap{position:static;padding:0;border:0;box-shadow:none}.qr-note{display:inline-flex;align-items:center;gap:7px;color:#205542;font-size:13px;font-weight:600}.qr-note .ic{width:18px;height:18px}.qr-note i{display:flex}
+.mapbox>.map{top:44px}
+@media(max-width:760px){.map-tools{padding:0 12px}.map-tools .mapcap{display:none}}
 </style>
 </head>
 <body>
@@ -27,7 +31,7 @@ main{max-width:1650px;margin:auto;padding:clamp(20px,2.2vw,34px) clamp(12px,3.2v
 <header><div class="top"><div class="brand"><span class="mark" data-icon="atlas"></span>Punto Estudio</div><div class="campus"><i data-icon="pin"></i>Campus San Joaquín</div></div></header>
 <main><div class="intro"><div><h1>Espacios de estudio</h1><p>Encuentra un lugar para estudiar durante tu próxima ventana.</p></div><span class="sim"><i data-icon="flask"></i>Datos simulados</span></div>
 <div class="workspace"><section class="mapbox" aria-label="Mapa interactivo del campus"><div class="map" id="map"><div class="sheet" id="sheet"></div><div id="zones" aria-hidden="true"></div><div id="position" class="position-demo" role="img" aria-label="Tu ubicación simulada en el patio central"></div><div id="markers"></div></div>
-<div class="mapcap"><i data-icon="atlas"></i>Mapa del campus</div>
+<div class="map-tools"><div class="mapcap"><i data-icon="atlas"></i>Mapa del campus</div><span class="qr-note"><i data-icon="camera" aria-hidden="true"></i>escanea el QR de la sala de estudio</span></div>
 <div class="legend" aria-label="Leyenda de disponibilidad"><span class="available"><i class="dot"></i>Disponible</span><span class="limited"><i class="dot"></i>Pocos cupos</span><span class="full"><i class="dot"></i>Completo</span><span><i class="dot location-dot"></i>Tu ubicación (simulada)</span></div>
 <div class="zoom"><div class="zoomgroup"><button class="control" id="plus" aria-label="Acercar mapa" title="Acercar mapa" data-icon="plus"></button><button class="control" id="minus" aria-label="Alejar mapa" title="Alejar mapa" data-icon="minus"></button></div><button class="control" id="reset" aria-label="Ver el campus completo" title="Ver el campus completo" data-icon="fit"></button></div></section>
 <aside class="side" aria-label="Espacios de estudio"><div id="sidehead" class="sidehead"><div class="cardtop"><h2>Directorio</h2><span class="count" id="count"></span></div><label class="search"><i data-icon="search"></i><input id="search" type="search" aria-label="Buscar sala o biblioteca" placeholder="Buscar sala o biblioteca…"></label><div class="filters" aria-label="Filtrar espacios"><button class="chip" data-filter="all" aria-pressed="true">Todos</button><button class="chip" data-filter="free" aria-pressed="false">Con cupos</button><button class="chip" data-filter="plug" aria-pressed="false">Con enchufes</button></div></div><div class="roomlist" id="list"></div><section class="detail" id="detail" aria-label="Ficha del espacio" hidden></section></aside></div><span class="sr" id="announce" role="status"></span></main>
@@ -35,6 +39,7 @@ main{max-width:1650px;margin:auto;padding:clamp(20px,2.2vw,34px) clamp(12px,3.2v
 'use strict';
 const $=id=>document.getElementById(id);
 const paths={
+ camera:'M3 7h4l2-3h6l2 3h4v13H3z M16 13a4 4 0 11-8 0 4 4 0 018 0z',
  atlas:'M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z M9 3v15 M15 6v15',
  pin:'M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1114 0z M14 10a2 2 0 11-4 0 2 2 0 014 0z',
  flask:'M9 3h6 M10 3v7l-6 9q-1 2 2 2h12q3 0 2-2l-6-9V3 M7 15h10',
@@ -50,7 +55,7 @@ $('icondefs').innerHTML=Object.entries(paths).map(([name,d])=>`<symbol id="i-${n
 const icon=name=>`<svg class="ic" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-${name}"/></svg>`;
 document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));
 // Coordenadas en el plano de referencia. Ocupación y equipamiento de demostración.
-// nombre, piso, x, y, ocupados, capacidad, enchufes, aire, bodega, ambiente
+// nombre, piso, x, y, ocupados, capacidad, enchufes, aire, casillero, ambiente
 const entries=[
  ['Sala de estudio CAI','Piso 1',402,654,18,30,1,1,0,'Conversación moderada'],
  ['Sala Carlos Rivera','Piso 1',812,550,22,24,1,1,0,'Silencioso'],
@@ -248,7 +253,7 @@ function openRoom(r,trigger){
  if(selected!==null)pins.get(selected).classList.remove('active');selected=r.id;previous=trigger;pins.get(r.id).classList.add('active');
  const [kind,label]=state(r);
  const attr=(symbol,title,value)=>`<div class="attr">${icon(symbol)}${title}<strong class="${value==='No'?'no':''}">${value}</strong></div>`;
- $('detail').innerHTML=`<div class="sheet-grip" aria-hidden="true"></div><div class="detailbar"><button class="back" id="back">${icon('back')}Directorio</button></div><div class="roomicon ${r.type==='book'?'library':''}">${icon(r.type)}</div><h2 tabindex="-1" id="roomtitle">${r.name}</h2><p class="loc">${icon('pin')}${r.floor} · Campus San Joaquín</p><div class="occ ${kind}"><div class="smallrow">Ocupación<span class="status"><i class="dot"></i>${label}</span></div><div class="ratio" aria-label="${r.used} de ${r.total} puestos ocupados">${r.used}<span>/${r.total}</span></div><div class="meter"><i style="width:${100*r.used/r.total}%"></i></div><p><strong>${r.free}</strong> ${r.free===1?'puesto libre':'puestos libres'}</p></div><h3>Características del espacio</h3>${attr('plug','Enchufes',r.plug?'Sí':'No')}${attr('air','Aire acondicionado',r.air?'Sí':'No')}${attr('box','Bodega',r.store?'Sí':'No')}${attr('noise','Ambiente',r.sound)}`;
+ $('detail').innerHTML=`<div class="sheet-grip" aria-hidden="true"></div><div class="detailbar"><button class="back" id="back">${icon('back')}Directorio</button></div><div class="roomicon ${r.type==='book'?'library':''}">${icon(r.type)}</div><h2 tabindex="-1" id="roomtitle">${r.name}</h2><p class="loc">${icon('pin')}${r.floor} · Campus San Joaquín</p><div class="occ ${kind}"><div class="smallrow">Ocupación<span class="status"><i class="dot"></i>${label}</span></div><div class="ratio" aria-label="${r.used} de ${r.total} puestos ocupados">${r.used}<span>/${r.total}</span></div><div class="meter"><i style="width:${100*r.used/r.total}%"></i></div><p><strong>${r.free}</strong> ${r.free===1?'puesto libre':'puestos libres'}</p></div><h3>Características del espacio</h3>${attr('plug','Enchufes',r.plug?'Sí':'No')}${attr('air','Aire acondicionado',r.air?'Sí':'No')}${attr('box','Casillero',r.store?'Sí':'No')}${attr('noise','Ambiente',r.sound)}`;
  $('sidehead').hidden=true;$('list').hidden=true;$('detail').hidden=false;$('detail').scrollTop=0;
  $('back').onclick=closeRoom;$('roomtitle').focus({preventScroll:true});
  if(trigger.classList.contains('room')){ox=map.clientWidth/2-r.x*scale();oy=map.clientHeight/2-r.y*scale();draw();}
