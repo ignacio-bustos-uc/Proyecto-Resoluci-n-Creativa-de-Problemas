@@ -16,15 +16,19 @@ main{max-width:1650px;margin:auto;padding:clamp(20px,2.2vw,34px) clamp(12px,3.2v
 .roomlist{overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:#c5d1c7 transparent}.room{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:white;padding:14px 18px;border-bottom:1px solid #e9ede7}.room:hover{background:#f4f8f1}.roomicon{width:35px;height:35px;border-radius:9px;background:#edf3e9;color:#406e57;display:grid;place-items:center;flex:none}.roomicon.library{color:#6b5b3a;background:#f5f0e5}.roomicon .ic{width:18px;height:18px}.roominfo{flex:1;min-width:0}.room b{font-weight:650;font-size:14px;line-height:1.3}.room small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.free{font-size:11px;color:var(--tone);font-weight:700;white-space:nowrap}.empty{padding:25px 20px;color:var(--muted);font-size:14px}.back,.close{gap:5px;font-size:13px;font-weight:600;padding:6px;border-radius:7px}.back .ic,.close .ic{width:17px;height:17px}.detail{padding:16px 20px 20px;overflow-y:auto}.detailbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.detail .roomicon{width:42px;height:42px;margin-bottom:12px}.detail .loc{font-size:13px;color:var(--muted);margin:7px 0 17px;gap:4px}.loc .ic{width:14px;height:14px}.occ{background:#f4f7f0;border:1px solid #dde6d9;padding:15px;border-radius:12px}.smallrow{justify-content:space-between;gap:7px;font-size:12px;font-weight:650}.status{color:var(--tone);background:var(--tint);padding:3px 7px;border-radius:20px;font-size:11px}.ratio{font-size:32px;font-weight:700;letter-spacing:-.05em;margin:6px 0}.ratio span{color:#65766a;font-size:23px}.meter{height:6px;border-radius:10px;background:#dce4d8;overflow:hidden;margin:7px 0}.meter i{display:block;height:100%;border-radius:inherit;background:var(--tone)}.occ p{font-size:13px;color:#41594a}.detail h3{font-size:15px;margin:17px 0 6px}.attr{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #e8ede7;font-size:13px}.attr .ic{width:16px;height:16px;color:#5b7564}.attr strong{margin-left:auto;font-size:12px}.attr .no{color:#718078;font-weight:500}[hidden]{display:none!important}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:760px){.top{height:51px}.brand{font-size:18px}.mark{width:30px;height:30px}.campus{font-size:11px}main{padding-top:16px}.intro{align-items:flex-start;margin-bottom:13px;flex-wrap:wrap;gap:8px}.intro p{font-size:13px}.sim{font-size:10px;padding:4px 7px}.workspace{display:flex;flex-direction:column;height:auto;border-radius:13px}.mapbox{height:clamp(330px,51dvh,480px);flex:none}.mapcap{left:9px;top:9px;font-size:11px}.legend{left:8px;bottom:9px;gap:7px;padding:6px 7px;font-size:10px}.zoom{right:8px;bottom:9px}.control{width:34px;height:34px}.side{border:0;border-top:1px solid var(--line)}.sidehead{padding:15px}.roomlist{max-height:430px}.detail{position:fixed;bottom:0;left:0;right:0;max-height:72dvh;z-index:20;background:white;border:1px solid #cddace;border-radius:18px 18px 0 0;box-shadow:0 -8px 45px #15382a38;padding-bottom:max(18px,env(safe-area-inset-bottom))}.detailbar{margin-bottom:6px}.detail .roomicon{display:none}.detail .loc{margin-bottom:10px}.detail h2{font-size:21px}.detail .attr{padding:6px 0}.intro h1{font-size:31px}}
 @media(prefers-reduced-motion:no-preference){.room,.chip,.control{transition:background .15s}}
+.zone{position:absolute;pointer-events:none;white-space:nowrap;color:#203c2e;font:700 14px/1.2 "Segoe UI",Arial,sans-serif;letter-spacing:.005em;text-shadow:-1.5px -1.5px 1px #fffffa,1.5px 1.5px 1px #fffffa,-1.5px 1.5px 1px #fffffa,1.5px -1.5px 1px #fffffa;transform:translate(-50%,-50%)}
+.position-demo{position:absolute;pointer-events:none;width:16px;height:16px;border-radius:50%;background:#245dc8;border:2px solid white;box-shadow:0 0 0 6px #3978e62b,0 1px 5px #1c458258;transform:translate(-50%,-50%)}
+.legend .location-dot{background:#245dc8}.sheet-grip{display:none}
+@media(max-width:760px){.sheet-grip{display:block;width:42px;height:5px;margin:-6px auto 8px;border-radius:8px;background:#98a99f}.detail{overscroll-behavior:contain}.legend{max-width:calc(100% - 60px);flex-wrap:wrap}.zone{font-size:13px}}
 </style>
 </head>
 <body>
 <svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs id="icondefs"></defs></svg>
 <header><div class="top"><div class="brand"><span class="mark" data-icon="atlas"></span>Punto Estudio</div><div class="campus"><i data-icon="pin"></i>Campus San Joaquín</div></div></header>
 <main><div class="intro"><div><h1>Espacios de estudio</h1><p>Encuentra un lugar para estudiar durante tu próxima ventana.</p></div><span class="sim"><i data-icon="flask"></i>Datos simulados</span></div>
-<div class="workspace"><section class="mapbox" aria-label="Mapa interactivo del campus"><div class="map" id="map"><div class="sheet" id="sheet"></div><div id="markers"></div></div>
+<div class="workspace"><section class="mapbox" aria-label="Mapa interactivo del campus"><div class="map" id="map"><div class="sheet" id="sheet"></div><div id="zones" aria-hidden="true"></div><div id="position" class="position-demo" role="img" aria-label="Tu ubicación simulada en el patio central"></div><div id="markers"></div></div>
 <div class="mapcap"><i data-icon="atlas"></i>Mapa del campus</div>
-<div class="legend" aria-label="Leyenda de disponibilidad"><span class="available"><i class="dot"></i>Disponible</span><span class="limited"><i class="dot"></i>Pocos cupos</span><span class="full"><i class="dot"></i>Completo</span></div>
+<div class="legend" aria-label="Leyenda de disponibilidad"><span class="available"><i class="dot"></i>Disponible</span><span class="limited"><i class="dot"></i>Pocos cupos</span><span class="full"><i class="dot"></i>Completo</span><span><i class="dot location-dot"></i>Tu ubicación (simulada)</span></div>
 <div class="zoom"><div class="zoomgroup"><button class="control" id="plus" aria-label="Acercar mapa" title="Acercar mapa" data-icon="plus"></button><button class="control" id="minus" aria-label="Alejar mapa" title="Alejar mapa" data-icon="minus"></button></div><button class="control" id="reset" aria-label="Ver el campus completo" title="Ver el campus completo" data-icon="fit"></button></div></section>
 <aside class="side" aria-label="Espacios de estudio"><div id="sidehead" class="sidehead"><div class="cardtop"><h2>Directorio</h2><span class="count" id="count"></span></div><label class="search"><i data-icon="search"></i><input id="search" type="search" aria-label="Buscar sala o biblioteca" placeholder="Buscar sala o biblioteca…"></label><div class="filters" aria-label="Filtrar espacios"><button class="chip" data-filter="all" aria-pressed="true">Todos</button><button class="chip" data-filter="free" aria-pressed="false">Con cupos</button><button class="chip" data-filter="plug" aria-pressed="false">Con enchufes</button></div></div><div class="roomlist" id="list"></div><section class="detail" id="detail" aria-label="Ficha del espacio" hidden></section></aside></div><span class="sr" id="announce" role="status"></span></main>
 <script>
@@ -116,12 +120,12 @@ function campusPlan(){
  const road=(d,w,c)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
  let outer='';
  for(let i=0;i<22;i++){const x=i*62-130;outer+=`<rect x="${x}" y="-39" width="46" height="74" rx="2" transform="rotate(-7 ${x} 0)"/><rect x="${x+120}" y="787" width="49" height="66" rx="2" transform="rotate(-5 ${x+120} 787)"/>`;}
- const labels=[[68,570,'AV. VICUÑA MACKENNA',80],[537,279,'Patio central',0],[452,726,'Ingeniería',-6],[722,123,'Comercial',-6],[895,460,'Biblioteca Central',80],[291,173,'Humanidades',-7],[1107,470,'Canchas',0],[762,661,'Gauss',-7],[1051,237,'DAE',0]];
+
  let trees='';
  for(const [x,y] of [[505,109],[535,178],[523,308],[602,311],[371,141],[236,390],[490,481],[545,456],[303,540],[1029,189],[1080,300],[987,645],[838,721],[189,685],[1073,578],[729,337]]){
   for(const [dx,dy,rad] of [[0,0,6],[9,4,5],[-4,9,5]])trees+=`<circle cx="${x+dx}" cy="${y+dy}" r="${rad}" fill="#b4cbaa" opacity=".68"/>`;
  }
- return `<svg class="basemap" viewBox="0 0 1255 811" aria-hidden="true" style="overflow:visible"><defs><pattern id="lawns" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r=".8" fill="#84a47c" opacity=".25"/></pattern></defs><rect x="-1600" y="-1200" width="4455" height="3211" fill="#eaece3"/><g fill="#d9dcd3" stroke="#c9cec4">${outer}</g>${areas.map(p=>svgPoly(p,'#cbdcc0')).join('')}${areas.map(p=>svgPoly(p,'url(#lawns)')).join('')}${blocks.map(p=>svgPoly(p,'#d2d5cb','#bfc5ba')).join('')}${minor.map(d=>road(d,5,'#fafbf4')).join('')}${major.map(d=>road(d,13,'#cdd2c7')+road(d,10,'#fbfcf6')).join('')}<circle cx="576" cy="220" r="10" fill="#aecac4" stroke="#f9fbf4" stroke-width="4"/><path d="M1174 450q19-26 38-9t9 43q-30 22-49-2z" fill="#b6cecc"/>${trees}<g fill="#758374" font-family="Segoe UI,Arial" font-weight="600" font-size="13" text-anchor="middle" paint-order="stroke" stroke="#edf0e6" stroke-width="3">${labels.map(([x,y,t,ang])=>`<text transform="translate(${x} ${y}) rotate(${ang})">${t}</text>`).join('')}</g></svg>`;
+ return `<svg class="basemap" viewBox="0 0 1255 811" aria-hidden="true" style="overflow:visible"><defs><pattern id="lawns" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r=".8" fill="#84a47c" opacity=".25"/></pattern></defs><rect x="-1600" y="-1200" width="4455" height="3211" fill="#eaece3"/><g fill="#d9dcd3" stroke="#c9cec4">${outer}</g>${areas.map(p=>svgPoly(p,'#cbdcc0')).join('')}${areas.map(p=>svgPoly(p,'url(#lawns)')).join('')}${blocks.map(p=>svgPoly(p,'#d2d5cb','#bfc5ba')).join('')}${minor.map(d=>road(d,5,'#fafbf4')).join('')}${major.map(d=>road(d,13,'#cdd2c7')+road(d,10,'#fbfcf6')).join('')}<circle cx="576" cy="220" r="10" fill="#aecac4" stroke="#f9fbf4" stroke-width="4"/><path d="M1174 450q19-26 38-9t9 43q-30 22-49-2z" fill="#b6cecc"/>${trees}</svg>`;
 }
 $('sheet').innerHTML=campusPlan();
 let filter='all',visible=rooms,selected=null,zoom=1,base=1,ox=0,oy=0,previous=null;
@@ -135,12 +139,25 @@ for(const r of rooms){
  pin.innerHTML=`<span class="bubble">${icon(r.type)}</span><span class="tip">${r.name} · ${r.floor}</span>`;
  pin.addEventListener('click',()=>openRoom(r,pin));$('markers').append(pin);pins.set(r.id,pin);
 }
+// Los nombres mantienen su tamaño en pantalla, incluso con el mapa alejado.
+const zoneData=[
+ [475,295,'Patio central'],[278,155,'Humanidades'],[756,93,'Comercial'],
+ [455,737,'Ingeniería'],[890,500,'Biblioteca Central'],[1100,465,'Canchas'],
+ [734,674,'Gauss'],[1080,224,'DAE'],[68,559,'Av. Vicuña Mackenna']
+];
+const zones=zoneData.map(([x,y,text])=>{
+ const el=document.createElement('span');el.className='zone';el.textContent=text;
+ $('zones').append(el);return {x,y,el};
+});
+const demo={x:553,y:324};
 const scale=()=>base*zoom;
 function draw(){
  const s=scale(),w=map.clientWidth,h=map.clientHeight;
  ox=Math.min(w*.5,Math.max(w*.5-1255*s,ox));oy=Math.min(h*.5,Math.max(h*.5-811*s,oy));
  $('sheet').style.cssText=`width:1255px;height:811px;transform:translate(${ox}px,${oy}px) scale(${s})`;
- const placed=[],lines=[];
+ const userX=ox+demo.x*s,userY=oy+demo.y*s;
+ $('position').style.left=userX+'px';$('position').style.top=userY+'px';
+ const placed=[{x:userX,y:userY}],lines=[];
  for(const r of visible){
   const px=ox+r.x*s,py=oy+r.y*s;let x=px,y=py;
   // Separa los puntos cercanos en pantalla sin cambiar la ubicación de la sala.
@@ -151,6 +168,26 @@ function draw(){
   placed.push({x,y});const pin=pins.get(r.id);pin.style.left=x+'px';pin.style.top=y+'px';
   if(Math.hypot(x-px,y-py)>3)lines.push(`<line x1="${px}" y1="${py}" x2="${x}" y2="${y}" stroke="#688673" stroke-width="1.2"/>`);
  }
+ // Busca una posición cercana que deje libres los pines y otros nombres.
+ const boxes=[];
+ for(const {x,y,el} of zones){
+  const cx=ox+x*s,cy=oy+y*s;
+  const width=el.offsetWidth,height=el.offsetHeight;
+  let best=null;
+  for(const dy of [0,-18,18,-36,36,-54,54]){
+   for(const dx of [0,-20,20,-40,40]){
+    const ax=cx+dx,ay=cy+dy;
+    const left=ax-width/2-2,right=ax+width/2+2,top=ay-height/2-2,bottom=ay+height/2+2;
+    const collisions=placed.filter(p=>p.x>left-9&&p.x<right+9&&p.y>top-9&&p.y<bottom+9).length
+     +boxes.filter(b=>b.left<right&&b.right>left&&b.top<bottom&&b.bottom>top).length;
+    const clipped=cx>=0&&cx<=w&&cy>=0&&cy<=h&&(left<0||right>w||top<0||bottom>h);
+    const cost=collisions*1000+Number(clipped)*200+Math.hypot(dx,dy);
+    if(!best||cost<best.cost)best={ax,ay,left,right,top,bottom,cost};
+   }
+   if(best.cost===0)break;
+  }
+  boxes.push(best);el.style.left=best.ax+'px';el.style.top=best.ay+'px';
+ }
  leaders.innerHTML=lines.join('');$('minus').disabled=zoom<=1;$('plus').disabled=zoom>=4;
 }
 function fit(){const w=map.clientWidth,h=map.clientHeight;if(!w||!h)return;base=Math.min(w/1160,h/830);zoom=1;ox=w/2-575*base;oy=h/2-406*base;draw();}
@@ -160,9 +197,45 @@ function magnify(factor,x=map.clientWidth/2,y=map.clientHeight/2){
 $('plus').onclick=()=>magnify(1.4);$('minus').onclick=()=>magnify(1/1.4);$('reset').onclick=fit;
 map.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const b=map.getBoundingClientRect();magnify(Math.exp(-e.deltaY*.01),e.clientX-b.left,e.clientY-b.top);},{passive:false});
 let drag=null;
-map.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0||drag)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY};map.setPointerCapture(e.pointerId);map.classList.add('drag');});
+map.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.target.closest('button')||e.button!==0||drag)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY};map.setPointerCapture(e.pointerId);map.classList.add('drag');});
 map.addEventListener('pointermove',e=>{if(drag?.id!==e.pointerId)return;ox+=e.clientX-drag.x;oy+=e.clientY-drag.y;drag.x=e.clientX;drag.y=e.clientY;draw();});
 map.addEventListener('lostpointercapture',()=>{drag=null;map.classList.remove('drag')});
+// Conserva el punto del mapa bajo el centro de los dedos al acercar y alejar.
+let lastTouches=null,touchOrigin=null,gestureMoved=false,ignoreMapClickUntil=0;
+function touchFrame(touches){
+ const bounds=map.getBoundingClientRect(),a=touches[0],b=touches[1]||a;
+ return {x:(a.clientX+b.clientX)/2-bounds.left,y:(a.clientY+b.clientY)/2-bounds.top,
+  distance:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY),count:touches.length};
+}
+map.addEventListener('touchstart',e=>{
+ lastTouches=touchFrame(mapTouches(e));
+ if(lastTouches.count===1){touchOrigin=lastTouches;gestureMoved=false;ignoreMapClickUntil=0;}
+ else gestureMoved=true;
+},{passive:true});
+map.addEventListener('touchmove',e=>{
+ const touches=mapTouches(e);
+ if(!lastTouches||!touches.length)return;
+ const next=touchFrame(touches),prev=lastTouches;
+ if(next.count===prev.count){
+  if(!gestureMoved&&Math.hypot(next.x-touchOrigin.x,next.y-touchOrigin.y)<4)return;
+  gestureMoved=true;if(e.cancelable)e.preventDefault();
+  const old=zoom;
+  if(next.count>=2&&prev.distance>0)zoom=Math.min(4,Math.max(1,zoom*next.distance/prev.distance));
+  ox=next.x-(prev.x-ox)*zoom/old;oy=next.y-(prev.y-oy)*zoom/old;draw();
+ }
+ lastTouches=next;
+},{passive:false});
+function mapTouches(e){return Array.from(e.touches).filter(t=>map.contains(t.target));}
+function finishTouch(e){
+ if(gestureMoved)ignoreMapClickUntil=performance.now()+450;
+ const touches=mapTouches(e);
+ lastTouches=touches.length?touchFrame(touches):null;
+}
+map.addEventListener('touchend',finishTouch);
+map.addEventListener('touchcancel',finishTouch);
+map.addEventListener('click',e=>{
+ if(e.detail&&performance.now()<ignoreMapClickUntil){e.preventDefault();e.stopImmediatePropagation();}
+},true);
 function render(){
  const query=norm($('search').value.trim());
  visible=rooms.filter(r=>(filter!=='free'||r.free>0)&&(filter!=='plug'||r.plug)&&norm(r.name+' '+r.floor).includes(query));
@@ -175,12 +248,37 @@ function openRoom(r,trigger){
  if(selected!==null)pins.get(selected).classList.remove('active');selected=r.id;previous=trigger;pins.get(r.id).classList.add('active');
  const [kind,label]=state(r);
  const attr=(symbol,title,value)=>`<div class="attr">${icon(symbol)}${title}<strong class="${value==='No'?'no':''}">${value}</strong></div>`;
- $('detail').innerHTML=`<div class="detailbar"><button class="back" id="back">${icon('back')}Directorio</button></div><div class="roomicon ${r.type==='book'?'library':''}">${icon(r.type)}</div><h2 tabindex="-1" id="roomtitle">${r.name}</h2><p class="loc">${icon('pin')}${r.floor} · Campus San Joaquín</p><div class="occ ${kind}"><div class="smallrow">Ocupación<span class="status"><i class="dot"></i>${label}</span></div><div class="ratio" aria-label="${r.used} de ${r.total} puestos ocupados">${r.used}<span>/${r.total}</span></div><div class="meter"><i style="width:${100*r.used/r.total}%"></i></div><p><strong>${r.free}</strong> ${r.free===1?'puesto libre':'puestos libres'}</p></div><h3>Características del espacio</h3>${attr('plug','Enchufes',r.plug?'Sí':'No')}${attr('air','Aire acondicionado',r.air?'Sí':'No')}${attr('box','Bodega',r.store?'Sí':'No')}${attr('noise','Ambiente',r.sound)}`;
+ $('detail').innerHTML=`<div class="sheet-grip" aria-hidden="true"></div><div class="detailbar"><button class="back" id="back">${icon('back')}Directorio</button></div><div class="roomicon ${r.type==='book'?'library':''}">${icon(r.type)}</div><h2 tabindex="-1" id="roomtitle">${r.name}</h2><p class="loc">${icon('pin')}${r.floor} · Campus San Joaquín</p><div class="occ ${kind}"><div class="smallrow">Ocupación<span class="status"><i class="dot"></i>${label}</span></div><div class="ratio" aria-label="${r.used} de ${r.total} puestos ocupados">${r.used}<span>/${r.total}</span></div><div class="meter"><i style="width:${100*r.used/r.total}%"></i></div><p><strong>${r.free}</strong> ${r.free===1?'puesto libre':'puestos libres'}</p></div><h3>Características del espacio</h3>${attr('plug','Enchufes',r.plug?'Sí':'No')}${attr('air','Aire acondicionado',r.air?'Sí':'No')}${attr('box','Bodega',r.store?'Sí':'No')}${attr('noise','Ambiente',r.sound)}`;
  $('sidehead').hidden=true;$('list').hidden=true;$('detail').hidden=false;$('detail').scrollTop=0;
  $('back').onclick=closeRoom;$('roomtitle').focus({preventScroll:true});
  if(trigger.classList.contains('room')){ox=map.clientWidth/2-r.x*scale();oy=map.clientHeight/2-r.y*scale();draw();}
 }
+// El contenido conserva su desplazamiento normal cuando la ficha no está arriba.
+const panel=$('detail');
+let swipe=null;
+function resetSwipe(){swipe=null;panel.style.transform='';}
+panel.addEventListener('touchstart',e=>{
+ resetSwipe();
+ if(!matchMedia('(max-width:760px)').matches||e.touches.length!==1||panel.scrollTop>1)return;
+ swipe={x:e.touches[0].clientX,y:e.touches[0].clientY,offset:0};
+},{passive:true});
+panel.addEventListener('touchmove',e=>{
+ if(!swipe)return;
+ if(e.touches.length!==1){resetSwipe();return;}
+ const dx=e.touches[0].clientX-swipe.x,dy=e.touches[0].clientY-swipe.y;
+ if(!swipe.offset&&(dy< -5||Math.abs(dx)>Math.max(10,dy))){resetSwipe();return;}
+ if(dy>5||swipe.offset){
+  if(e.cancelable)e.preventDefault();
+  swipe.offset=Math.max(0,dy);panel.style.transform=`translateY(${swipe.offset}px)`;
+ }
+},{passive:false});
+panel.addEventListener('touchend',()=>{
+ const dismiss=swipe&&swipe.offset>=Math.min(75,panel.offsetHeight*.22);
+ resetSwipe();if(dismiss)closeRoom();
+});
+panel.addEventListener('touchcancel',resetSwipe);
 function closeRoom(){
+ resetSwipe();
  if(selected===null)return;pins.get(selected).classList.remove('active');selected=null;
  $('detail').hidden=true;$('sidehead').hidden=false;$('list').hidden=false;previous?.focus({preventScroll:true});
 }
